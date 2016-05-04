@@ -4,14 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.mail.Session;
-
 import org.apache.commons.lang3.ArrayUtils;
-
-import com.api.config.ConfigHolderHR;
 import com.api.config.ConfigHolderIA;
-import com.api.humanresource.ProcessRequestHR;
 import com.api.infoholder.InfoHolderHrIa;
 import com.api.internetarchive.ProcessRequestIA;
 import com.api.utils.FileUtils;
@@ -38,7 +33,8 @@ public class RunForLargeFilesIA {
 
 		RunForLargeFilesIA runner = new RunForLargeFilesIA(configPath, config);
 		String oFile = runner.runIA(outputFile, inputFile, timeStamp, 1, keys,
-				false);
+				false,"rohit14331@gmail.com");
+		System.out.println(oFile);
 
 	}
 
@@ -49,14 +45,14 @@ public class RunForLargeFilesIA {
 
 	public String runIAWithFile(String inFile, String outputFile,
 			String timeStamp, int url,
-			String[] keys, boolean email) {
+			String[] keys, boolean sendEmail, String emailID) {
 		// String configPath =
 		// "/Users/Admin/Documents/DigitalIntern2015/workspace/GeoCodeAPI/etc/config.xml";
 		// String config = "HumanResource";
 		// String timeStamp = "2008";
 		try {
 			return runIA(outputFile, inFile, timeStamp,
-					url, keys, email);
+					url, keys, sendEmail, emailID);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +61,7 @@ public class RunForLargeFilesIA {
 	}
 
 	private String runIA(String outputFile, String inputFile, String timeStamp,
-			int url, String[] keys, boolean email) throws IOException {
+			int url, String[] keys, boolean sendEmail, String emailID) throws IOException {
 
 		CSVWriter writer = new CSVWriter(new FileWriter(new File(outputFile)),
 				',');
@@ -98,7 +94,7 @@ public class RunForLargeFilesIA {
 					if (pri.set(ia)) {
 						ia.writeCSV(writer);
 						isWritten = true;
-						if (email) {
+						if (sendEmail) {
 							if (count == 2000) {
 								count = 0;
 								writer.flush();
@@ -107,7 +103,7 @@ public class RunForLargeFilesIA {
 								SendEmail.sendEmailWithAttachment(s,
 										"Please find attached the result of chunk number "
 												+ String.valueOf(chunk),
-										"rohit14331@gmail.com",
+										emailID,
 										"Internet Archive Result", outputFile,
 										"chunk-" + String.valueOf(chunk)
 												+ ".csv");
@@ -127,11 +123,11 @@ public class RunForLargeFilesIA {
 		if (isWritten) {
 			writer.flush();
 			writer.close();
-			if (email) {
+			if (sendEmail) {
 				SendEmail.sendEmailWithAttachment(s,
 						"Please find attached the result of chunk number "
 								+ String.valueOf(chunk),
-						"rohit14331@gmail.com", "Internet Archive Result",
+						emailID, "Internet Archive Result",
 						outputFile, "chunk-" + String.valueOf(chunk) + ".csv");
 			}
 

@@ -50,7 +50,7 @@ public class FileUtils {
 	public static CSVReader getCSVReader(String fileName){
 		CSVReader reader = null;
 		try {
-			reader = new CSVReader(new FileReader(fileName));
+			reader = new CSVReader(new FileReader(fileName),',','\"');
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
