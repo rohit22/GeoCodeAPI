@@ -28,10 +28,27 @@ The code is organized into packages. The application has 4 workflows. 3 workflow
 
 In this section, we describe the basic outline of one workflow which is simlar to both general and preset cases. As mentioned earlier, the APIs that this application supports are accessed through URL only, for example
 
-  **https://api.what3words.com/position?key=[KEY]&lang=en&position=51.521251,-0.203586** 
-  
-  and the output is always a json object, for example
-  
-  **{"words":["index","home","raft"],"position":[51.521251,-0.203586],"language":"en"}**.
-  
-  Any API of this form can be accessed using this application. In the given example, the user might be interested in the 3 words returned by the api and user has a csv file with the position co-ordinates in one single column. The user should first form a sample url that can be used to call the API (in the given example, the user should generate his own key and then plug it in the url). Generally, the sample url is given in the documentation of the API. After forming the sample url, the user can use it to select the parameters that change for every request from among the input parameters. In general, for the example given the 3 input parameters are *key*, *lang*, and *position*, the only parameter that changes with every request is *position* and the other 2 parameters are constant for a particular user. The csv file that the user uploads should contain one column for each of the input parameters that he selects. Through the application, the user should enter the column numbers for each of the parameters and upload the csv file. The user should also select the output parameters that he is interested 
+**https://api.what3words.com/position?key=[KEY]&lang=en&position=51.521251,-0.203586** 
+
+and the output is always a json object, for example
+
+**{"words":["index","home","raft"],"position":[51.521251,-0.203586],"language":"en"}**.
+
+Any API of this form can be accessed using this application. This is a general API (not one of the preset APIs). Hence, the classes that are accessed by the workflow for accessign this API are
+
+1. RunForLargeFilesGeneral
+2. ProcessRequestGeneral
+3. FileUtils
+4. InfoHolderGeneral
+
+*RunForLargeFilesGeneral* contains the main class that has to be run. The user has to have the sample url (with appropriate fields filled), input csv file, and a location and name for the output csv file. It also required to input the url keys and their column numbers in the input file for constructing new requests. The main class also requires the user to give a list of output fields to facilitate the access. The sample main class has all these attribtues set to give a more clear picture for the user.
+
+*ProcessRequestGeneral* contains the process in which the url will be accessed and the construction of the url. 
+
+*FileUtils* contains the functions for opening and closing the files and other necessary functions. 
+
+*InfoHolderGeneral* is the information holder data structure that is instantiated for every request. This object is being sent across the pipeline and the output attribtues are set in this object. 
+
+## Contact
+
+This documentation should help in exploring the project. In case of any questions, feel free to reach out to Digital Social Science Center at Columbia University. 
