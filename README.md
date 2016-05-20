@@ -49,6 +49,9 @@ Any API of this form can be accessed using this application. This is a general A
 
 *InfoHolderGeneral* is the information holder data structure that is instantiated for every request. This object is being sent across the pipeline and the output attribtues are set in this object. 
 
+## Presentation
+A final presentation was made on this application at the Digital Centers Intern showcase. The slides of the same can be found at [slides] (https://docs.google.com/a/columbia.edu/presentation/d/1kKKO3qvJ4KAkEQh1gG5j42qJvrwbdD1_1AYfllNh8Wg/edit?usp=sharing)
+
 ## Contact
 
 This documentation should help in exploring the project. In case of any questions, feel free to reach out to Digital Social Science Center at Columbia University. 
